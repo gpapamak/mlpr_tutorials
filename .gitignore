@@ -1,0 +1,9 @@
+
+# specific files and folders
+.DS_Store
+
+# text editor's temporary files
+*~
+
+# python files
+*.pyc
