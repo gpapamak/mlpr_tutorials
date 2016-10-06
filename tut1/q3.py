@@ -130,8 +130,8 @@ def plot_linear_2d_interactive():
 	    angle = angle_slider.val
 	    shift = shift_slider.val
 	    rot = np.array([[np.cos(angle), np.sin(angle)], [-np.sin(angle), np.cos(angle)]])
-	    new_v = np.dot(rot, v)
-	    new_A = scale * (np.sum(XY * new_v, axis=2) + b + shift)
+	    new_v = scale * np.dot(rot, v)
+	    new_A =  np.sum(XY * new_v, axis=2) + scale * (b + shift)
 	    plot_ax1(new_A)
 	    plot_ax2(new_A, new_v)
 	    fig.canvas.draw_idle()
@@ -190,8 +190,8 @@ def plot_logistic_2d_interactive():
 	    angle = angle_slider.val
 	    shift = shift_slider.val
 	    rot = np.array([[np.cos(angle), np.sin(angle)], [-np.sin(angle), np.cos(angle)]])
-	    new_v = np.dot(rot, v)
-	    new_A = scale * (np.sum(XY * new_v, axis=2) + b + shift)
+	    new_v = scale * np.dot(rot, v)
+	    new_A = np.sum(XY * new_v, axis=2) + scale * (b + shift)
 	    new_Z = logistic(new_A)
 	    plot_ax1(new_Z)
 	    plot_ax2(new_Z, new_v)
