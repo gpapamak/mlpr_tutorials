@@ -113,16 +113,17 @@ def plot_linear_2d_interactive():
 		ax1.set_ylim(xlim)
 		ax1.set_zlim(zlim)
 
-	def plot_ax2(A, v):
+	def plot_ax2(A, v, b):
 		ax2.cla()
 		ax2.grid('on')
 		ax2.axis('equal')
 		CS = ax2.contour(X, Y, A, colors='k', levels=[-24, -16, -8, 0, 8, 16, 24])
 		plt.setp(CS.collections[3], linewidth=4)
-		ax2.arrow(0, 0, v[0], v[1], lw=4, head_width=0.2, head_length=0.15, fc='r', ec='r')
+		origin = -b / np.dot(v, v) * v
+		ax2.arrow(origin[0], origin[1], v[0], v[1], lw=4, head_width=0.2, head_length=0.15, fc='g', ec='g')
 
 	plot_ax1(A)
-	plot_ax2(A, v)
+	plot_ax2(A, v, b)
 	fig.suptitle(r'$y = v^Tx+b$', fontsize=20)
 
 	def update(val):
@@ -131,9 +132,10 @@ def plot_linear_2d_interactive():
 	    shift = shift_slider.val
 	    rot = np.array([[np.cos(angle), np.sin(angle)], [-np.sin(angle), np.cos(angle)]])
 	    new_v = scale * np.dot(rot, v)
-	    new_A =  np.sum(XY * new_v, axis=2) + scale * (b + shift)
+	    new_b = scale * (b + shift)
+	    new_A =  np.sum(XY * new_v, axis=2) + new_b
 	    plot_ax1(new_A)
-	    plot_ax2(new_A, new_v)
+	    plot_ax2(new_A, new_v, new_b)
 	    fig.canvas.draw_idle()
 
 	scale_slider = Slider(plt.axes([0.05, 0.01, 0.2, 0.03]), '', 0, 2, valinit=1)
@@ -173,16 +175,18 @@ def plot_logistic_2d_interactive():
 		ax1.set_ylim(xlim)
 		ax1.set_zlim(zlim)
 
-	def plot_ax2(Z, v):
+	def plot_ax2(Z, v, b):
 		ax2.cla()
 		ax2.grid('on')
 		ax2.axis('equal')
 		CS = ax2.contour(X, Y, Z, colors='k', levels=[0.05, 0.2, 0.35, 0.5, 0.65, 0.8, 0.95])
 		plt.setp(CS.collections[3], linewidth=4)
-		ax2.arrow(0, 0, v[0], v[1], lw=4, head_width=0.2, head_length=0.15, fc='r', ec='r')
+		origin = -b / np.dot(v, v) * v
+		ax2.arrow(origin[0], origin[1], v[0], v[1], lw=4, head_width=0.2, head_length=0.15, fc='g', ec='g')
+
 
 	plot_ax1(Z)
-	plot_ax2(Z, v)
+	plot_ax2(Z, v, b)
 	fig.suptitle(r'$y = \sigma(v^Tx+b)$', fontsize=20)
 
 	def update(val):
@@ -191,10 +195,11 @@ def plot_logistic_2d_interactive():
 	    shift = shift_slider.val
 	    rot = np.array([[np.cos(angle), np.sin(angle)], [-np.sin(angle), np.cos(angle)]])
 	    new_v = scale * np.dot(rot, v)
-	    new_A = np.sum(XY * new_v, axis=2) + scale * (b + shift)
+	    new_b = scale * (b + shift)
+	    new_A = np.sum(XY * new_v, axis=2) + new_b
 	    new_Z = logistic(new_A)
 	    plot_ax1(new_Z)
-	    plot_ax2(new_Z, new_v)
+	    plot_ax2(new_Z, new_v, new_b)
 	    fig.canvas.draw_idle()
 
 	scale_slider = Slider(plt.axes([0.05, 0.01, 0.2, 0.03]), '', 0, 2, valinit=1)
