@@ -221,5 +221,5 @@ def plot_logistic_regression_loss(separable):
 	ax.set_xlabel(r'$w_1$', fontsize=fontsize)
 	ax.set_ylabel(r'$w_2$', fontsize=fontsize)
 	
-	plt.show(block=False)
+	plt.show()
 	

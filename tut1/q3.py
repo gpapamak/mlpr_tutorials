@@ -31,7 +31,7 @@ def plot_logistic_1d():
 	ax.set_title('y = 1 / (1 + exp(-x))')
 	ax.set_xlabel('x')
 	ax.set_ylabel('y')
-	plt.show(block=False)
+	plt.show()
 
 
 def plot_linear_2d():
@@ -58,7 +58,7 @@ def plot_linear_2d():
 	ax.arrow(0, 0, v[0], v[1], lw=4, head_width=0.2, head_length=0.15, fc='r', ec='r')
 
 	fig.suptitle(r'$y = v^Tx+b$', fontsize=20)
-	plt.show(block=False)
+	plt.show()
 
 
 def plot_logistic_2d():
@@ -86,7 +86,7 @@ def plot_logistic_2d():
 	ax.arrow(0, 0, v[0], v[1], lw=4, head_width=0.2, head_length=0.15, fc='r', ec='r')
 
 	fig.suptitle(r'$y = \sigma(v^Tx+b)$', fontsize=20)
-	plt.show(block=False)
+	plt.show()
 
 
 def plot_linear_2d_interactive():
